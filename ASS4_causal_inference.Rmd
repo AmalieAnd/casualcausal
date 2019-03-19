@@ -1,0 +1,26 @@
+---
+title: "ASS4_causal_inference"
+author: "Amalie Lysgaard Andersen"
+date: "19/3/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. Choose a published study that you enjoyed reading and draw the causal graph of the variables involved. Are there any obvious cases of confounds, biases, or colliders? If not, think of a variable that i) should be controlled for or ii) should not be controlled for, add it to the causal graph and explain it.
+
+2. Browse https://chield.excd.org/ (hint, it could be useful for the previous task as well). Identify at least one case of possible confounds, and one of possible “post-treatment bias”. Bonus points if you can find a collider.
+
+3. Load the file “CausalInferenceData.csv”. It contains a dataset about brain size and social learning in primate (from the rethinking package). In this problem, you will consider how brain size is associated with social learning. There are three parts.
+
+•	First, model the number of observations of social_learning for each species as a function of the log brain size. Interpret the resulting posterior.
+o	N.B. Ideally (not mandatory) you would use a Poisson distribution for the social_learning outcome variable. Why Poisson? 
+o	If you use map2stan() instead of map(), Poisson can be modeled as 
+  social_learning ~ Poisson(lambda)
+  log(lambda) <- a+bx (where x is your prediction).
+o	If you use brm() you simply change the family to Poisson
+o	N.B. priors are then on a log scale (that is, a sd of 1 will mean a much larger tail on the right than in a linear scale)
+•	Second, some species are studied much more than others. So the number of reported instances of social_learning could be a product of research effort. Use the research_effort variable, specifically its logarithm, as an additional predictor variable. Interpret the coefficient for log research_effort. Does this model disagree with the previous one?
+•	Third, draw a causal graph to represent how you think the variables social_learning, brain, and research_effort interact. Justify the causal graph with the measured associations in the two models above (and any other models you used).
